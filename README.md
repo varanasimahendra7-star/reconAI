@@ -7,6 +7,10 @@
 
 > **Solo Submission** — Razorpay AI Buildathon (Track 04: AI Finance Controller)
 
+## 🚀 Live Demo
+
+**[Open ReconAI Live Demo](https://reconai-ogbb8gwzyyhmebevo3nr79.streamlit.app/)**
+
 ---
 
 ## 1. Project Overview
