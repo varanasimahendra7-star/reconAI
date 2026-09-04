@@ -1,0 +1,23 @@
+{
+  "final_results": [
+    {
+      "transaction_id": "TXN0001",
+      "final_decision": "MATCH",
+      "resolution_method": "MATCHED_BY_RULE",
+      "confidence": 1.0,
+      "reason": "Exact amount match (payment=3776.34, bank=3776.34) (settlement 3 day(s) after payment). Reference: 'PAY5LXO6QJI'.",
+      "exception_type": null,
+      "matched_bank_id": "BNK0001",
+      "matched_ledger_id": "LDG0001",
+      "bank_candidates": [
+        {
+          "bank_id": "BNK0001",
+          "settlement_date": "2024-05-28",
+          "settlement_amount": "3776.34",
+          "description": "Settlement PAY5LXO6QJI Karan Joshi",
+          "bank_reference": "PAY5LXO6QJI",
+          "norm_reference": "PAY5LXO6QJI",
+          "norm_ref_from_desc": "PAY5LXO6QJI",
+          "norm_name_from_desc": "karan joshi",
+          "norm_amount": 3776.34,
+          "norm_date": 
