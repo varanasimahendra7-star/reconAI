@@ -97,12 +97,27 @@ def get_gemini_model_name() -> str:
 def get_gemini_client():
     """
     Initializes and returns google.genai Client.
-    Raises ValueError if GEMINI_API_KEY is not configured.
+
+    Supports:
+      - Streamlit Community Cloud via st.secrets
+      - Local development via .env
     """
-    api_key = os.getenv("GEMINI_API_KEY", "").strip()
+    api_key = ""
+
+    # Streamlit Cloud
+    try:
+        import streamlit as st
+        api_key = st.secrets.get("GEMINI_API_KEY", "")
+    except Exception:
+        pass
+
+    # Local .env fallback
     if not api_key:
-        raise ValueError("GEMINI_API_KEY is not set in environment or .env file.")
-    
+        api_key = os.getenv("GEMINI_API_KEY", "").strip()
+
+    if not api_key:
+        raise ValueError("GEMINI_API_KEY is not configured.")
+
     from google import genai
     return genai.Client(api_key=api_key)
 
