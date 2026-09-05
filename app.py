@@ -519,13 +519,17 @@ if app_mode == "Demo Mode (Cached Final Run)":
 
     with eval_col1:
         st.markdown("##### Binary Decision Confusion Matrix")
+        act_match = evaluation['true_positives'] + evaluation['false_negatives']
+        act_exc = evaluation['true_negatives'] + evaluation['false_positives']
+        pred_match = evaluation['true_positives'] + evaluation['false_positives']
+        pred_exc = evaluation['true_negatives'] + evaluation['false_negatives']
         conf_matrix = pd.DataFrame(
             [
                 [f"True Positive (TP): {evaluation['true_positives']}", f"False Negative (FN): {evaluation['false_negatives']}"],
                 [f"False Positive (FP): {evaluation['false_positives']}", f"True Negative (TN): {evaluation['true_negatives']}"]
             ],
-            index=["Actual MATCH (71)", "Actual EXCEPTION (19)"],
-            columns=["Predicted MATCH (71)", "Predicted EXCEPTION (19)"]
+            index=[f"Actual MATCH ({act_match})", f"Actual EXCEPTION ({act_exc})"],
+            columns=[f"Predicted MATCH ({pred_match})", f"Predicted EXCEPTION ({pred_exc})"]
         )
         st.table(conf_matrix)
         st.caption(

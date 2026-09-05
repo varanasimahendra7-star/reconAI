@@ -1,4 +1,4 @@
-﻿"""
+"""
 generate_data.py
 ----------------
 Generates synthetic financial records for ReconAI reconciliation demo.
@@ -36,12 +36,13 @@ OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "data")
 # Edge-case counts (must sum to <= NUM_BASE_TRANSACTIONS)
 EDGE_CASE_COUNTS = {
     "EXACT_MATCH":              45,   # Clean three-way match
-    "NAME_VARIATION":           10,   # Name/description differs across sources
-    "DATE_DRIFT":               8,    # Settlement date drifts 1-3 days
-    "FEE_DEDUCTION":            8,    # Bank amount = payment minus gateway fee
-    "DUPLICATE_BANK":           5,    # Two bank entries for one payment
-    "MISSING_BANK":             7,    # No bank record at all
-    "AMOUNT_MISMATCH":          7,    # Unexplained amount difference
+    "FEE_DEDUCTION":             8,   # Bank amount = payment minus gateway fee
+    "DATE_DRIFT":                8,   # Settlement date drifts 1-3 days
+    "NAME_VARIATION":            7,   # Name/description differs across sources
+    "AI_RESOLVABLE":             8,   # Disambiguation requiring AI escalation
+    "DUPLICATE_BANK":            5,   # Two bank entries for one payment
+    "MISSING_BANK":              5,   # No bank record at all
+    "AMOUNT_MISMATCH":           4,   # Unexplained amount difference
 }
 assert sum(EDGE_CASE_COUNTS.values()) == NUM_BASE_TRANSACTIONS, (
     f"Edge case counts sum to {sum(EDGE_CASE_COUNTS.values())}, expected {NUM_BASE_TRANSACTIONS}"
@@ -501,15 +502,88 @@ def make_amount_mismatch():
     return payment, bank, ledger, gt
 
 
+def make_ai_resolvable():
+    """
+    Genuinely ambiguous case: multiple bank candidates for the same customer & amount
+    on the same settlement date. The deterministic rule engine flags UNRESOLVED
+    because bank_reference is blank and neither candidate has exact token match.
+    Gemini inspects the descriptions and uniquely identifies the correct one
+    based on the partial reference code P-<suffix> matching the payment reference PAY<suffix>.
+    """
+    txn_id = _next_txn_id()
+    name = _rand_name()
+    amount = _rand_amount()
+    pay_date = _rand_date()
+    pay_ref = _rand_ref("PAY")
+    ref_suffix = pay_ref[3:]
+    other_suffix = "".join(random.choices(string.ascii_uppercase + string.digits, k=len(ref_suffix)))
+
+    payment = {
+        "transaction_id":    txn_id,
+        "payment_date":      str(pay_date),
+        "payment_amount":    amount,
+        "customer_name":     name,
+        "payment_reference": pay_ref,
+        "status":            "CAPTURED",
+    }
+
+    bank_id_correct = _next_bank_id()
+    bank_id_distractor = _next_bank_id()
+    drift = random.randint(1, 2)
+
+    cand_correct = {
+        "bank_id":           bank_id_correct,
+        "settlement_date":   str(pay_date + timedelta(days=drift)),
+        "settlement_amount": amount,
+        "description":       f"Settlement {name} Ref: P-{ref_suffix}",
+        "bank_reference":    "",
+    }
+    cand_distractor = {
+        "bank_id":           bank_id_distractor,
+        "settlement_date":   str(pay_date + timedelta(days=drift)),
+        "settlement_amount": amount,
+        "description":       f"Settlement {name} Ref: P-{other_suffix}",
+        "bank_reference":    "",
+    }
+
+    bank = [cand_correct, cand_distractor]
+    if random.random() < 0.5:
+        bank.reverse()
+
+    ledger_id = _next_ledger_id()
+    ledger = {
+        "ledger_id":         ledger_id,
+        "ledger_date":       str(pay_date),
+        "ledger_amount":     amount,
+        "customer_name":     name,
+        "ledger_reference":  pay_ref,
+    }
+
+    gt = {
+        "transaction_id":        txn_id,
+        "ground_truth_decision": "MATCH",
+        "ground_truth_reason":   (
+            f"AI candidate disambiguation: {bank_id_correct} matches payment "
+            f"{pay_ref} via description Ref: P-{ref_suffix}"
+        ),
+        "expected_bank_id":      bank_id_correct,
+        "expected_ledger_id":    ledger_id,
+        "edge_case_type":        "AI_RESOLVABLE",
+    }
+
+    return payment, bank, ledger, gt
+
+
 # ---------------------------------------------------------------------------
 # Main generation
 # ---------------------------------------------------------------------------
 
 SCENARIO_FUNCS = {
     "EXACT_MATCH":     make_exact_match,
-    "NAME_VARIATION":  make_name_variation,
-    "DATE_DRIFT":      make_date_drift,
     "FEE_DEDUCTION":   make_fee_deduction,
+    "DATE_DRIFT":      make_date_drift,
+    "NAME_VARIATION":  make_name_variation,
+    "AI_RESOLVABLE":   make_ai_resolvable,
     "DUPLICATE_BANK":  make_duplicate_bank,
     "MISSING_BANK":    make_missing_bank,
     "AMOUNT_MISMATCH": make_amount_mismatch,

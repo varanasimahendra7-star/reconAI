@@ -1,91 +1,91 @@
 transaction_id,ground_truth_decision,ground_truth_reason,expected_bank_id,expected_ledger_id,edge_case_type
-TXN0001,MATCH,Settlement date drifted 3 day(s) from payment date -- within configured window of 3 days,BNK0001,LDG0001,DATE_DRIFT
+TXN0001,MATCH,Settlement date drifted 3 day(s) from payment date -- within 3-day window,BNK0001,LDG0001,DATE_DRIFT
 TXN0002,MATCH,"Exact three-way match on reference, amount, and date",BNK0002,LDG0002,EXACT_MATCH
 TXN0003,MATCH,"Exact three-way match on reference, amount, and date",BNK0003,LDG0003,EXACT_MATCH
 TXN0004,MATCH,"Exact three-way match on reference, amount, and date",BNK0004,LDG0004,EXACT_MATCH
-TXN0005,EXCEPTION,"Two bank entries (BNK0005, BNK0006) both reference PAY4SHNF877 with same amount -- duplicate settlement must be investigated",BNK0005|BNK0006,LDG0005,DUPLICATE_BANK
-TXN0006,MATCH,Bank settlement = payment minus 2% gateway fee,BNK0007,LDG0006,FEE_DEDUCTION
+TXN0005,MATCH,AI candidate disambiguation: BNK0005 matches payment PAY4SHNF877 via description Ref: P-4SHNF877,BNK0005,LDG0005,AI_RESOLVABLE
+TXN0006,MATCH,"Name variation across sources with consistent reference, amount, and date",BNK0007,LDG0006,NAME_VARIATION
 TXN0007,MATCH,"Exact three-way match on reference, amount, and date",BNK0008,LDG0007,EXACT_MATCH
 TXN0008,MATCH,"Exact three-way match on reference, amount, and date",BNK0009,LDG0008,EXACT_MATCH
 TXN0009,MATCH,"Exact three-way match on reference, amount, and date",BNK0010,LDG0009,EXACT_MATCH
 TXN0010,MATCH,"Exact three-way match on reference, amount, and date",BNK0011,LDG0010,EXACT_MATCH
-TXN0011,MATCH,"Name varies across sources but reference, amount, and date are consistent",BNK0012,LDG0011,NAME_VARIATION
-TXN0012,MATCH,"Name varies across sources but reference, amount, and date are consistent",BNK0013,LDG0012,NAME_VARIATION
-TXN0013,MATCH,Bank settlement = payment minus 2% gateway fee,BNK0014,LDG0013,FEE_DEDUCTION
+TXN0011,MATCH,Bank settlement = payment minus 2% gateway fee,BNK0012,LDG0011,FEE_DEDUCTION
+TXN0012,MATCH,Bank settlement = payment minus 2% gateway fee,BNK0013,LDG0012,FEE_DEDUCTION
+TXN0013,MATCH,"Name variation across sources with consistent reference, amount, and date",BNK0014,LDG0013,NAME_VARIATION
 TXN0014,MATCH,"Exact three-way match on reference, amount, and date",BNK0015,LDG0014,EXACT_MATCH
-TXN0015,MATCH,Settlement date drifted 2 day(s) from payment date -- within configured window of 3 days,BNK0016,LDG0015,DATE_DRIFT
-TXN0016,MATCH,Settlement date drifted 3 day(s) from payment date -- within configured window of 3 days,BNK0017,LDG0016,DATE_DRIFT
-TXN0017,MATCH,Settlement date drifted 3 day(s) from payment date -- within configured window of 3 days,BNK0018,LDG0017,DATE_DRIFT
-TXN0018,MATCH,Bank settlement = payment minus 2% gateway fee,BNK0019,LDG0018,FEE_DEDUCTION
-TXN0019,MATCH,"Name varies across sources but reference, amount, and date are consistent",BNK0020,LDG0019,NAME_VARIATION
-TXN0020,MATCH,Settlement date drifted 2 day(s) from payment date -- within configured window of 3 days,BNK0021,LDG0020,DATE_DRIFT
-TXN0021,MATCH,"Name varies across sources but reference, amount, and date are consistent",BNK0022,LDG0021,NAME_VARIATION
-TXN0022,EXCEPTION,Amount mismatch of 3.5% between payment and bank -- not explainable by 2% gateway fee,BNK0023,LDG0022,AMOUNT_MISMATCH
-TXN0023,EXCEPTION,No bank settlement record found for this payment,,LDG0023,MISSING_BANK
-TXN0024,MATCH,Bank settlement = payment minus 2% gateway fee,BNK0024,LDG0024,FEE_DEDUCTION
-TXN0025,MATCH,"Exact three-way match on reference, amount, and date",BNK0025,LDG0025,EXACT_MATCH
-TXN0026,MATCH,"Exact three-way match on reference, amount, and date",BNK0026,LDG0026,EXACT_MATCH
-TXN0027,MATCH,"Exact three-way match on reference, amount, and date",BNK0027,LDG0027,EXACT_MATCH
-TXN0028,EXCEPTION,"Two bank entries (BNK0028, BNK0029) both reference PAY2VLPYS28 with same amount -- duplicate settlement must be investigated",BNK0028|BNK0029,LDG0028,DUPLICATE_BANK
-TXN0029,MATCH,"Exact three-way match on reference, amount, and date",BNK0030,LDG0029,EXACT_MATCH
-TXN0030,MATCH,"Exact three-way match on reference, amount, and date",BNK0031,LDG0030,EXACT_MATCH
-TXN0031,MATCH,Settlement date drifted 1 day(s) from payment date -- within configured window of 3 days,BNK0032,LDG0031,DATE_DRIFT
-TXN0032,MATCH,"Exact three-way match on reference, amount, and date",BNK0033,LDG0032,EXACT_MATCH
-TXN0033,MATCH,"Exact three-way match on reference, amount, and date",BNK0034,LDG0033,EXACT_MATCH
-TXN0034,EXCEPTION,Amount mismatch of 5.5% between payment and bank -- not explainable by 2% gateway fee,BNK0035,LDG0034,AMOUNT_MISMATCH
-TXN0035,MATCH,"Name varies across sources but reference, amount, and date are consistent",BNK0036,LDG0035,NAME_VARIATION
-TXN0036,EXCEPTION,No bank settlement record found for this payment,,LDG0036,MISSING_BANK
-TXN0037,MATCH,"Exact three-way match on reference, amount, and date",BNK0037,LDG0037,EXACT_MATCH
-TXN0038,MATCH,"Exact three-way match on reference, amount, and date",BNK0038,LDG0038,EXACT_MATCH
-TXN0039,MATCH,"Exact three-way match on reference, amount, and date",BNK0039,LDG0039,EXACT_MATCH
-TXN0040,MATCH,"Exact three-way match on reference, amount, and date",BNK0040,LDG0040,EXACT_MATCH
-TXN0041,MATCH,Bank settlement = payment minus 2% gateway fee,BNK0041,LDG0041,FEE_DEDUCTION
-TXN0042,MATCH,Bank settlement = payment minus 2% gateway fee,BNK0042,LDG0042,FEE_DEDUCTION
-TXN0043,MATCH,"Name varies across sources but reference, amount, and date are consistent",BNK0043,LDG0043,NAME_VARIATION
-TXN0044,MATCH,"Exact three-way match on reference, amount, and date",BNK0044,LDG0044,EXACT_MATCH
-TXN0045,MATCH,"Exact three-way match on reference, amount, and date",BNK0045,LDG0045,EXACT_MATCH
-TXN0046,EXCEPTION,"Two bank entries (BNK0046, BNK0047) both reference PAYOIXNTM9T with same amount -- duplicate settlement must be investigated",BNK0046|BNK0047,LDG0046,DUPLICATE_BANK
-TXN0047,MATCH,"Exact three-way match on reference, amount, and date",BNK0048,LDG0047,EXACT_MATCH
-TXN0048,MATCH,"Exact three-way match on reference, amount, and date",BNK0049,LDG0048,EXACT_MATCH
-TXN0049,MATCH,"Exact three-way match on reference, amount, and date",BNK0050,LDG0049,EXACT_MATCH
-TXN0050,MATCH,"Name varies across sources but reference, amount, and date are consistent",BNK0051,LDG0050,NAME_VARIATION
-TXN0051,MATCH,"Exact three-way match on reference, amount, and date",BNK0052,LDG0051,EXACT_MATCH
-TXN0052,EXCEPTION,No bank settlement record found for this payment,,LDG0052,MISSING_BANK
-TXN0053,MATCH,"Exact three-way match on reference, amount, and date",BNK0053,LDG0053,EXACT_MATCH
-TXN0054,MATCH,"Exact three-way match on reference, amount, and date",BNK0054,LDG0054,EXACT_MATCH
-TXN0055,MATCH,"Exact three-way match on reference, amount, and date",BNK0055,LDG0055,EXACT_MATCH
-TXN0056,MATCH,Settlement date drifted 1 day(s) from payment date -- within configured window of 3 days,BNK0056,LDG0056,DATE_DRIFT
-TXN0057,MATCH,"Name varies across sources but reference, amount, and date are consistent",BNK0057,LDG0057,NAME_VARIATION
+TXN0015,MATCH,Settlement date drifted 1 day(s) from payment date -- within 3-day window,BNK0016,LDG0015,DATE_DRIFT
+TXN0016,MATCH,Settlement date drifted 1 day(s) from payment date -- within 3-day window,BNK0017,LDG0016,DATE_DRIFT
+TXN0017,MATCH,"Name variation across sources with consistent reference, amount, and date",BNK0018,LDG0017,NAME_VARIATION
+TXN0018,MATCH,AI candidate disambiguation: BNK0019 matches payment PAYVZHWJR64 via description Ref: P-VZHWJR64,BNK0019,LDG0018,AI_RESOLVABLE
+TXN0019,MATCH,Bank settlement = payment minus 2% gateway fee,BNK0021,LDG0019,FEE_DEDUCTION
+TXN0020,MATCH,Settlement date drifted 1 day(s) from payment date -- within 3-day window,BNK0022,LDG0020,DATE_DRIFT
+TXN0021,MATCH,Bank settlement = payment minus 2% gateway fee,BNK0023,LDG0021,FEE_DEDUCTION
+TXN0022,EXCEPTION,No bank settlement record found for this payment,,LDG0022,MISSING_BANK
+TXN0023,EXCEPTION,"Duplicate settlement records (BNK0024, BNK0025) for reference PAYO9T7E8G8",BNK0024|BNK0025,LDG0023,DUPLICATE_BANK
+TXN0024,MATCH,"Name variation across sources with consistent reference, amount, and date",BNK0026,LDG0024,NAME_VARIATION
+TXN0025,MATCH,"Exact three-way match on reference, amount, and date",BNK0027,LDG0025,EXACT_MATCH
+TXN0026,MATCH,"Exact three-way match on reference, amount, and date",BNK0028,LDG0026,EXACT_MATCH
+TXN0027,MATCH,"Exact three-way match on reference, amount, and date",BNK0029,LDG0027,EXACT_MATCH
+TXN0028,MATCH,AI candidate disambiguation: BNK0030 matches payment PAYSWM31YIH via description Ref: P-SWM31YIH,BNK0030,LDG0028,AI_RESOLVABLE
+TXN0029,MATCH,"Exact three-way match on reference, amount, and date",BNK0032,LDG0029,EXACT_MATCH
+TXN0030,MATCH,"Exact three-way match on reference, amount, and date",BNK0033,LDG0030,EXACT_MATCH
+TXN0031,MATCH,"Name variation across sources with consistent reference, amount, and date",BNK0034,LDG0031,NAME_VARIATION
+TXN0032,MATCH,"Exact three-way match on reference, amount, and date",BNK0035,LDG0032,EXACT_MATCH
+TXN0033,MATCH,"Exact three-way match on reference, amount, and date",BNK0036,LDG0033,EXACT_MATCH
+TXN0034,EXCEPTION,Amount mismatch of 11.4% between payment and bank -- not explainable by 2% fee,BNK0037,LDG0034,AMOUNT_MISMATCH
+TXN0035,MATCH,Bank settlement = payment minus 2% gateway fee,BNK0038,LDG0035,FEE_DEDUCTION
+TXN0036,EXCEPTION,"Duplicate settlement records (BNK0039, BNK0040) for reference PAYGJLQM5K8",BNK0039|BNK0040,LDG0036,DUPLICATE_BANK
+TXN0037,MATCH,"Exact three-way match on reference, amount, and date",BNK0041,LDG0037,EXACT_MATCH
+TXN0038,MATCH,"Exact three-way match on reference, amount, and date",BNK0042,LDG0038,EXACT_MATCH
+TXN0039,MATCH,"Exact three-way match on reference, amount, and date",BNK0043,LDG0039,EXACT_MATCH
+TXN0040,MATCH,"Exact three-way match on reference, amount, and date",BNK0044,LDG0040,EXACT_MATCH
+TXN0041,MATCH,"Name variation across sources with consistent reference, amount, and date",BNK0045,LDG0041,NAME_VARIATION
+TXN0042,MATCH,AI candidate disambiguation: BNK0046 matches payment PAYJ3TRP0J4 via description Ref: P-J3TRP0J4,BNK0046,LDG0042,AI_RESOLVABLE
+TXN0043,MATCH,Bank settlement = payment minus 2% gateway fee,BNK0048,LDG0043,FEE_DEDUCTION
+TXN0044,MATCH,"Exact three-way match on reference, amount, and date",BNK0049,LDG0044,EXACT_MATCH
+TXN0045,MATCH,"Exact three-way match on reference, amount, and date",BNK0050,LDG0045,EXACT_MATCH
+TXN0046,MATCH,AI candidate disambiguation: BNK0051 matches payment PAYJV1V93KM via description Ref: P-JV1V93KM,BNK0051,LDG0046,AI_RESOLVABLE
+TXN0047,MATCH,"Exact three-way match on reference, amount, and date",BNK0053,LDG0047,EXACT_MATCH
+TXN0048,MATCH,"Exact three-way match on reference, amount, and date",BNK0054,LDG0048,EXACT_MATCH
+TXN0049,MATCH,"Exact three-way match on reference, amount, and date",BNK0055,LDG0049,EXACT_MATCH
+TXN0050,MATCH,Bank settlement = payment minus 2% gateway fee,BNK0056,LDG0050,FEE_DEDUCTION
+TXN0051,MATCH,"Exact three-way match on reference, amount, and date",BNK0057,LDG0051,EXACT_MATCH
+TXN0052,EXCEPTION,"Duplicate settlement records (BNK0058, BNK0059) for reference PAY2V37PQKO",BNK0058|BNK0059,LDG0052,DUPLICATE_BANK
+TXN0053,MATCH,"Exact three-way match on reference, amount, and date",BNK0060,LDG0053,EXACT_MATCH
+TXN0054,MATCH,"Exact three-way match on reference, amount, and date",BNK0061,LDG0054,EXACT_MATCH
+TXN0055,MATCH,"Exact three-way match on reference, amount, and date",BNK0062,LDG0055,EXACT_MATCH
+TXN0056,MATCH,Settlement date drifted 2 day(s) from payment date -- within 3-day window,BNK0063,LDG0056,DATE_DRIFT
+TXN0057,MATCH,Bank settlement = payment minus 2% gateway fee,BNK0064,LDG0057,FEE_DEDUCTION
 TXN0058,EXCEPTION,No bank settlement record found for this payment,,LDG0058,MISSING_BANK
-TXN0059,MATCH,"Exact three-way match on reference, amount, and date",BNK0058,LDG0059,EXACT_MATCH
-TXN0060,EXCEPTION,Amount mismatch of 8.5% between payment and bank -- not explainable by 2% gateway fee,BNK0059,LDG0060,AMOUNT_MISMATCH
-TXN0061,MATCH,"Exact three-way match on reference, amount, and date",BNK0060,LDG0061,EXACT_MATCH
-TXN0062,EXCEPTION,"Two bank entries (BNK0061, BNK0062) both reference PAYM2JA04UX with same amount -- duplicate settlement must be investigated",BNK0061|BNK0062,LDG0062,DUPLICATE_BANK
-TXN0063,MATCH,"Exact three-way match on reference, amount, and date",BNK0063,LDG0063,EXACT_MATCH
-TXN0064,MATCH,"Exact three-way match on reference, amount, and date",BNK0064,LDG0064,EXACT_MATCH
-TXN0065,MATCH,"Exact three-way match on reference, amount, and date",BNK0065,LDG0065,EXACT_MATCH
-TXN0066,EXCEPTION,Amount mismatch of 8.9% between payment and bank -- not explainable by 2% gateway fee,BNK0066,LDG0066,AMOUNT_MISMATCH
-TXN0067,MATCH,Settlement date drifted 1 day(s) from payment date -- within configured window of 3 days,BNK0067,LDG0067,DATE_DRIFT
-TXN0068,EXCEPTION,Amount mismatch of 7.6% between payment and bank -- not explainable by 2% gateway fee,BNK0068,LDG0068,AMOUNT_MISMATCH
-TXN0069,MATCH,"Name varies across sources but reference, amount, and date are consistent",BNK0069,LDG0069,NAME_VARIATION
-TXN0070,EXCEPTION,Amount mismatch of 14.7% between payment and bank -- not explainable by 2% gateway fee,BNK0070,LDG0070,AMOUNT_MISMATCH
-TXN0071,MATCH,"Exact three-way match on reference, amount, and date",BNK0071,LDG0071,EXACT_MATCH
-TXN0072,EXCEPTION,No bank settlement record found for this payment,,LDG0072,MISSING_BANK
-TXN0073,MATCH,Bank settlement = payment minus 2% gateway fee,BNK0072,LDG0073,FEE_DEDUCTION
-TXN0074,MATCH,"Exact three-way match on reference, amount, and date",BNK0073,LDG0074,EXACT_MATCH
-TXN0075,MATCH,"Exact three-way match on reference, amount, and date",BNK0074,LDG0075,EXACT_MATCH
-TXN0076,EXCEPTION,No bank settlement record found for this payment,,LDG0076,MISSING_BANK
-TXN0077,EXCEPTION,Amount mismatch of 14.4% between payment and bank -- not explainable by 2% gateway fee,BNK0075,LDG0077,AMOUNT_MISMATCH
-TXN0078,MATCH,"Exact three-way match on reference, amount, and date",BNK0076,LDG0078,EXACT_MATCH
-TXN0079,MATCH,"Name varies across sources but reference, amount, and date are consistent",BNK0077,LDG0079,NAME_VARIATION
-TXN0080,EXCEPTION,"Two bank entries (BNK0078, BNK0079) both reference PAY2IEUC1HH with same amount -- duplicate settlement must be investigated",BNK0078|BNK0079,LDG0080,DUPLICATE_BANK
-TXN0081,MATCH,"Exact three-way match on reference, amount, and date",BNK0080,LDG0081,EXACT_MATCH
-TXN0082,MATCH,Bank settlement = payment minus 2% gateway fee,BNK0081,LDG0082,FEE_DEDUCTION
-TXN0083,MATCH,"Exact three-way match on reference, amount, and date",BNK0082,LDG0083,EXACT_MATCH
-TXN0084,MATCH,"Exact three-way match on reference, amount, and date",BNK0083,LDG0084,EXACT_MATCH
-TXN0085,MATCH,"Exact three-way match on reference, amount, and date",BNK0084,LDG0085,EXACT_MATCH
-TXN0086,MATCH,"Exact three-way match on reference, amount, and date",BNK0085,LDG0086,EXACT_MATCH
-TXN0087,MATCH,"Exact three-way match on reference, amount, and date",BNK0086,LDG0087,EXACT_MATCH
-TXN0088,MATCH,"Exact three-way match on reference, amount, and date",BNK0087,LDG0088,EXACT_MATCH
-TXN0089,MATCH,"Exact three-way match on reference, amount, and date",BNK0088,LDG0089,EXACT_MATCH
+TXN0059,MATCH,"Exact three-way match on reference, amount, and date",BNK0065,LDG0059,EXACT_MATCH
+TXN0060,EXCEPTION,No bank settlement record found for this payment,,LDG0060,MISSING_BANK
+TXN0061,MATCH,"Exact three-way match on reference, amount, and date",BNK0066,LDG0061,EXACT_MATCH
+TXN0062,MATCH,AI candidate disambiguation: BNK0067 matches payment PAYB0Z3NX39 via description Ref: P-B0Z3NX39,BNK0067,LDG0062,AI_RESOLVABLE
+TXN0063,MATCH,"Exact three-way match on reference, amount, and date",BNK0069,LDG0063,EXACT_MATCH
+TXN0064,MATCH,"Exact three-way match on reference, amount, and date",BNK0070,LDG0064,EXACT_MATCH
+TXN0065,MATCH,"Exact three-way match on reference, amount, and date",BNK0071,LDG0065,EXACT_MATCH
+TXN0066,EXCEPTION,Amount mismatch of 14.4% between payment and bank -- not explainable by 2% fee,BNK0072,LDG0066,AMOUNT_MISMATCH
+TXN0067,MATCH,Settlement date drifted 3 day(s) from payment date -- within 3-day window,BNK0073,LDG0067,DATE_DRIFT
+TXN0068,EXCEPTION,No bank settlement record found for this payment,,LDG0068,MISSING_BANK
+TXN0069,MATCH,Settlement date drifted 1 day(s) from payment date -- within 3-day window,BNK0074,LDG0069,DATE_DRIFT
+TXN0070,EXCEPTION,Amount mismatch of 10.2% between payment and bank -- not explainable by 2% fee,BNK0075,LDG0070,AMOUNT_MISMATCH
+TXN0071,MATCH,"Exact three-way match on reference, amount, and date",BNK0076,LDG0071,EXACT_MATCH
+TXN0072,EXCEPTION,"Duplicate settlement records (BNK0077, BNK0078) for reference PAY8K52QC1I",BNK0077|BNK0078,LDG0072,DUPLICATE_BANK
+TXN0073,MATCH,"Name variation across sources with consistent reference, amount, and date",BNK0079,LDG0073,NAME_VARIATION
+TXN0074,MATCH,"Exact three-way match on reference, amount, and date",BNK0080,LDG0074,EXACT_MATCH
+TXN0075,MATCH,"Exact three-way match on reference, amount, and date",BNK0081,LDG0075,EXACT_MATCH
+TXN0076,EXCEPTION,"Duplicate settlement records (BNK0082, BNK0083) for reference PAY5X4W7KYH",BNK0082|BNK0083,LDG0076,DUPLICATE_BANK
+TXN0077,EXCEPTION,Amount mismatch of 13.8% between payment and bank -- not explainable by 2% fee,BNK0084,LDG0077,AMOUNT_MISMATCH
+TXN0078,MATCH,"Exact three-way match on reference, amount, and date",BNK0085,LDG0078,EXACT_MATCH
+TXN0079,MATCH,Settlement date drifted 1 day(s) from payment date -- within 3-day window,BNK0086,LDG0079,DATE_DRIFT
+TXN0080,MATCH,AI candidate disambiguation: BNK0087 matches payment PAYVAJEPECQ via description Ref: P-VAJEPECQ,BNK0087,LDG0080,AI_RESOLVABLE
+TXN0081,MATCH,"Exact three-way match on reference, amount, and date",BNK0089,LDG0081,EXACT_MATCH
+TXN0082,MATCH,AI candidate disambiguation: BNK0090 matches payment PAYNVKSP2EX via description Ref: P-NVKSP2EX,BNK0090,LDG0082,AI_RESOLVABLE
+TXN0083,MATCH,"Exact three-way match on reference, amount, and date",BNK0092,LDG0083,EXACT_MATCH
+TXN0084,MATCH,"Exact three-way match on reference, amount, and date",BNK0093,LDG0084,EXACT_MATCH
+TXN0085,MATCH,"Exact three-way match on reference, amount, and date",BNK0094,LDG0085,EXACT_MATCH
+TXN0086,MATCH,"Exact three-way match on reference, amount, and date",BNK0095,LDG0086,EXACT_MATCH
+TXN0087,MATCH,"Exact three-way match on reference, amount, and date",BNK0096,LDG0087,EXACT_MATCH
+TXN0088,MATCH,"Exact three-way match on reference, amount, and date",BNK0097,LDG0088,EXACT_MATCH
+TXN0089,MATCH,"Exact three-way match on reference, amount, and date",BNK0098,LDG0089,EXACT_MATCH
 TXN0090,EXCEPTION,No bank settlement record found for this payment,,LDG0090,MISSING_BANK

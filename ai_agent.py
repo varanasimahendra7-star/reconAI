@@ -42,8 +42,8 @@ if not logger.handlers:
 # Load environment variables
 load_dotenv(override=True)
 
-# Verified fallback model confirmed working with project API key on 2026-09-04
-VERIFIED_FALLBACK_MODEL = "gemini-3.6-flash"
+# Verified fallback model confirmed working with project API key
+VERIFIED_FALLBACK_MODEL = "gemini-3.7-flash"
 
 # ---------------------------------------------------------------------------
 # Structured Output Schema
