@@ -8,9 +8,10 @@
 > **End-Term Software Project** — Automated Multi-Source Financial Reconciliation Engine  
 > **Author:** Mahendra Varanasi | **Submission Date:** October 2026
 
-## 🚀 Live Demo
+## 🚀 Live Demo & Video Presentation
 
-**[Open ReconAI Live Demo](https://reconai-ogbb8gwzyyhmebevo3nr79.streamlit.app/)**
+- 🌐 **Live Interactive Dashboard:** **[Open ReconAI on Streamlit Cloud](https://reconai-ogbb8gwzyyhmebevo3nr79.streamlit.app/)**
+- 🎥 **Video Demonstration (Google Drive):** **[Watch the Demo Video Walkthrough](https://drive.google.com/file/d/1IVqAuENC5x3A4w2O9InfOdM_vlu8hNhT/view?usp=sharing)**
 
 ---
 
@@ -401,12 +402,14 @@ python tests/test_app_modes.py
 
 ---
 
-## 10. 3–5 Minute Demonstration Guide
+## 10. Demo Video & Presentation Walkthrough
 
-Follow this streamlined walkthrough for your recorded demo video (recommended duration: 3–5 minutes per guidelines):
+> 🎥 **Recorded Product Demonstration:** **[Watch the Demo Video on Google Drive](https://drive.google.com/file/d/1IVqAuENC5x3A4w2O9InfOdM_vlu8hNhT/view?usp=sharing)**
+
+The video follows this structured 4-minute demonstration workflow:
 
 1. **The Executive Problem (0:00 - 0:45):**
-   - Open the live Streamlit dashboard (pp.py).
+   - Open the live Streamlit dashboard (`app.py`).
    - Highlight the 3 disjoint financial sources: Payment Gateway, Bank Settlement, and Merchant Internal Ledger.
    - Explain the core operational challenge: T+3 settlement delays, MDR gateway fee deductions (2%), duplicate batch settlements, and text descriptor variations.
 2. **Deterministic Rules Engine (0:45 - 1:30):**
