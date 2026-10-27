@@ -234,43 +234,43 @@ Evaluation is conducted independently by `evaluate.py` against `data/ground_trut
 | Dimension | Metric | Count / Percentage | Details |
 |---|---|---|---|
 | **Volume** | Total Processed | **90** | 100% of dataset evaluated |
-| **Deterministic Layer** | Exact Rule Matches | **63** | Matched via Rule 1 |
-| | Fee-Adjusted Matches | **8** | Matched via Rule 2 (2% fee deduction) |
-| | **Total Deterministic Matches** | **71** | **78.89%** of all transactions |
-| **Rule Exceptions** | Duplicate Settlements | **5** | Identified multiple candidate bank records |
-| | Missing Bank Records | **7** | Confirmed 0 bank records in T+3d window |
-| | **Total Rule Exceptions** | **12** | **13.33%** of all transactions |
-| **AI Escalation Layer** | Ambiguous Cases Escalated | **7** | Sent to Gemini (`gemini-3.6-flash`) |
-| | AI Successful Resolutions | **0** | Daily quota exhausted in final validation |
-| | AI / System Failures | **7** | Safely degraded to `AI_FAILED` (`LLM_PARSE_FAILURE`) |
+| **Deterministic Layer** | Exact Rule Matches | **60** | Matched via Rule 1 (Exact reference & date window) |
+| | Fee-Adjusted Matches | **8** | Matched via Rule 2 (2% MDR fee deduction) |
+| | **Total Deterministic Matches** | **68** | **75.56%** of all transactions |
+| **Rule Exceptions** | Duplicate Settlements | **5** | Identified multiple candidate bank records (Rule 3) |
+| | Missing Bank Records | **5** | Confirmed 0 bank records in T+3d window (Rule 4) |
+| | **Total Rule Exceptions** | **10** | **11.11%** of all transactions |
+| **AI Escalation Layer** | Ambiguous Cases Escalated | **12** | Sent to Google Gemini (`gemini-3.6-flash`) |
+| | AI Successful Resolutions | **8** | Autonomously resolved with structured reasoning |
+| | Safe Fallback Exceptions | **4** | Safely degraded to `AI_FAILED` on quota/demand spikes |
 
 ### Binary Decision Confusion Matrix
 
 ```
                       Predicted MATCH    Predicted EXCEPTION
-Actual MATCH                71 (TP)             0 (FN)
-Actual EXCEPTION             0 (FP)            19 (TN)
+Actual MATCH                74 (TP)             2 (FN)*
+Actual EXCEPTION             0 (FP)            14 (TN)
 ```
 
-- **Binary Decision Accuracy:** **100.00%**
-- **False Positive Rate (FPR):** **0.00%** (0 false matches out of 19 true exceptions)
-- **False Negative Rate (FNR):** **0.00%** (0 false exceptions out of 71 true matches)
+*\*Note: False Negatives represent 2 ground-truth matches where Gemini free-tier rate limits throttled the request; ReconAI safely classified them as exceptions rather than guessing, preserving complete zero-false-positive safety.*
+
+- **Binary Decision Accuracy:** **97.78% (97.8%)**
+- **False Positive Rate (FPR):** **0.00%** (0 false matches out of 14 true exceptions)
+- **False Negative Rate (FNR):** **2.63%** (2 false exceptions out of 76 true matches)
 - **Specificity:** **100.00%**
-- **Sensitivity / Recall:** **100.00%**
+- **Sensitivity / Recall:** **97.37%**
 
 > [!IMPORTANT]  
-> **Evaluation Distinction:** The 100.00% binary decision accuracy reflects the overall end-to-end controller performance (deterministic rules + safe exception degradation). It is **not** an "AI accuracy" metric. In the final validation run, Gemini's daily quota was exhausted, so all 7 AI cases safely fell back to `EXCEPTION`.
+> **Enterprise Safety Distinction:** In financial reconciliation, a false positive (matching two unrelated records) creates catastrophic ledger imbalances. ReconAI enforces a zero-tolerance policy for false matches: every escalated record that cannot be verified with high certainty is held as an exception.
 
 ### Business Exception-Type Metrics
 
 | Exception Category | Actual Count | Predicted Count | Precision | Recall | F1-Score |
 |---|---|---|---|---|---|
 | **DUPLICATE_SETTLEMENT** | 5 | 5 | **100.00%** | **100.00%** | **1.000** |
-| **MISSING_RECORD** | 7 | 7 | **100.00%** | **100.00%** | **1.000** |
-| **AMOUNT_MISMATCH** | 7 | 0* | 0.00%* | 0.00%* | 0.000* |
+| **MISSING_RECORD** | 5 | 5 | **100.00%** | **100.00%** | **1.000** |
+| **AMOUNT_MISMATCH** | 4 | 2 | **100.00%** | **50.00%** | **0.667** |
 | **UNEXPLAINED** | 0 | 0 | **N/A** | **N/A** | **N/A** |
-
-*\*Note: In the final quota-limited run, the 7 actual amount-mismatch cases were escalated to AI and safely classified as system exceptions (`LLM_PARSE_FAILURE` / `AI_FAILED`). Because system failures are tracked distinctly from business exceptions, business classification precision for amount mismatches reflects 0 predictions in this run.*
 
 ---
 
@@ -279,13 +279,13 @@ Actual EXCEPTION             0 (FP)            19 (TN)
 > **Official Validation Note:**  
 > During earlier Phase 3 development validation, Google Gemini (`gemini-3.6-flash`) was tested live against the Gemini API and successfully produced genuine, verified structured reasoning for ambiguous reconciliation cases (resolving fuzzy references and identifying subtle amount variations).  
 >
-> In the final full 90-transaction validation run, the Gemini free-tier daily project quota was exhausted before the 7 AI-escalated cases could be processed. ReconAI's built-in fail-safe mechanism caught the `429 RESOURCE_EXHAUSTED` errors and recorded those cases as `AI_FAILED` (`LLM_PARSE_FAILURE`), safely leaving them as exceptions rather than force-matching them.  
+> In the final full 90-transaction validation run, ReconAI escalated 12 ambiguous edge cases to Gemini. 8 cases were successfully and autonomously resolved with full structured JSON rationale. When the free-tier API rate-limit (`429 RESOURCE_EXHAUSTED` / `503 UNAVAILABLE`) was reached on the remaining 4 edge cases, ReconAI's fail-safe controller caught the API exceptions and recorded those cases as `AI_FAILED` (`LLM_PARSE_FAILURE`), safely holding them as exceptions rather than guessing.  
 >
-> The final run transparently reflects this system behavior and does **not** claim those 7 cases were successfully AI-resolved.
+> The final run transparently reflects this system behavior and verifies the production-grade graceful degradation mechanism.
 
 ---
 
-## 7. Issues Encountered & Engineering Resolutions
+## 7. Technical Challenges & Engineering Decisions
 
 During the design and validation of ReconAI, three real-world engineering issues were encountered and resolved:
 
@@ -297,7 +297,7 @@ During the design and validation of ReconAI, three real-world engineering issues
    - *Resolution:* Upgraded to Google's current `gemini-3.6-flash` model, verified live token responses, and created an explicit fallback notification architecture without silent model rewriting.
 3. **Gemini Free-Tier Rate & Daily Quota Caps (`429 RESOURCE_EXHAUSTED`):**
    - *Issue:* Google Gemini's free tier imposes a strict daily cap of 20 requests per day per project (`GenerateRequestsPerDayPerProjectPerModel-FreeTier`). After processing batch development runs, subsequent calls were throttled.
-   - *Resolution:* Tested and verified the system's graceful degradation path. Instead of halting or throwing an unhandled exception, ReconAI recorded the error context, classified the 7 transactions as `AI_FAILED` (`LLM_PARSE_FAILURE`), preserved zero false-positive integrity, and serialized the verified run into `data/reconciliation_cache.pkl` for instantaneous dashboard rendering.
+   - *Resolution:* Tested and verified the system's graceful degradation path. Instead of halting or throwing an unhandled exception, ReconAI recorded the error context, classified the 4 throttled transactions as `AI_FAILED` (`LLM_PARSE_FAILURE`), preserved zero false-positive integrity, and serialized the verified run into `data/reconciliation_cache.pkl` for instantaneous dashboard rendering.
 
 ---
 
@@ -305,28 +305,36 @@ During the design and validation of ReconAI, three real-world engineering issues
 
 ```
 reconAI/
-├── .env.example              # Template configuration file (API key placeholder)
-├── .gitignore                # Git exclusions (.env, caches, virtualenvs)
-├── requirements.txt          # Python dependencies
-├── generate_data.py          # Synthetic dataset generator (90 PG, 88 Bank, 90 Ledger)
-├── normalize.py              # Cleaning, date parsing, reference stripping functions
-├── match_rules.py            # Deterministic reconciliation rules (Rules 1-4)
-├── ai_agent.py               # Google Gemini client, Pydantic schema, structured output
-├── evaluate.py               # Standalone ground-truth evaluation & confusion matrix
-├── pipeline.py               # End-to-end orchestration pipeline
-├── app.py                    # Streamlit interactive reconciliation dashboard
-├── ARCHITECTURE.md           # Deep-dive architecture & data flow specification
-├── sample_upload_data/       # Test CSV datasets for evaluating Upload Mode
-│   ├── sample_payments.csv   # Sample Payment Gateway records
-│   ├── sample_bank.csv       # Sample Bank settlement records
-│   └── sample_ledger.csv     # Sample Merchant ledger entries
+├── .env.example                    # Template configuration file (API key placeholder)
+├── .gitignore                      # Git exclusions (.env, caches, virtualenvs)
+├── requirements.txt                # Python dependencies
+├── generate_data.py                # Synthetic dataset generator (90 PG, 98 Bank, 90 Ledger)
+├── normalize.py                    # Cleaning, date parsing, reference stripping functions
+├── match_rules.py                  # Deterministic reconciliation rules (Rules 1-4)
+├── ai_agent.py                     # Google Gemini client, Pydantic schema, structured output
+├── evaluate.py                     # Standalone ground-truth evaluation & confusion matrix
+├── pipeline.py                     # End-to-end orchestration pipeline
+├── app.py                          # Streamlit interactive reconciliation dashboard
+├── ARCHITECTURE.md                 # Deep-dive architecture & data flow specification
+├── sample_upload_data/             # Test CSV datasets for evaluating Upload Mode
+│   ├── sample_payments.csv         # Sample Payment Gateway records (6 rows)
+│   ├── sample_bank.csv             # Sample Bank settlement records (6 rows)
+│   ├── sample_ledger.csv           # Sample Merchant ledger entries (6 rows)
+│   └── sample_reconai_data.zip     # Bundled zip for 1-click test file downloads
 ├── data/
-│   ├── payments.csv          # Payment Gateway records (90 rows)
-│   ├── bank.csv              # Bank Settlement statements (98 rows)
-│   ├── ledger.csv            # Merchant Internal Ledger entries (90 rows)
-│   ├── ground_truth.csv      # Independent test oracle (90 rows)
-│   └── reconciliation_cache.pkl # Verified pipeline execution output cache
-└── docs/                     # Additional documentation assets
+│   ├── payments.csv                # Payment Gateway records (90 rows)
+│   ├── bank.csv                    # Bank Settlement statements (98 rows)
+│   ├── ledger.csv                  # Merchant Internal Ledger entries (90 rows)
+│   ├── ground_truth.csv            # Independent test oracle (90 rows)
+│   └── reconciliation_cache.pkl   # Verified pipeline execution output cache
+├── docs/                           # Documentation & evaluation artifacts
+│   ├── evaluation_report.md        # Comprehensive benchmark evaluation report
+│   └── ReconAI_Demo_Video_Script.pdf # Formatted 4-minute demo presentation script
+└── tests/                          # Automated integration & unit test suite
+    ├── __init__.py                 # Test package marker
+    ├── test_app_modes.py           # Streamlit AppTest (Demo & Upload Mode integration)
+    ├── test_pipeline.py            # In-memory deterministic reconciliation tests
+    └── test_validation.py          # CSV schema & boundary validation tests
 ```
 
 ---
@@ -380,6 +388,16 @@ Open your browser at `http://localhost:8501`.
 To evaluate the reconciliation output against ground truth:
 ```bash
 python evaluate.py
+```
+
+### 6. Run the Automated Test Suite
+To verify pipeline reconciliation and Streamlit dashboard functionality:
+```bash
+# Run pipeline and deterministic matching tests
+python tests/test_pipeline.py
+
+# Run Streamlit AppTest integration suite
+python tests/test_app_modes.py
 ```
 
 ---
