@@ -577,6 +577,47 @@ else:
         """
     )
 
+    # 1-Click Sample Test Files Downloader
+    sample_p_path = os.path.join("sample_upload_data", "sample_payments.csv")
+    sample_b_path = os.path.join("sample_upload_data", "sample_bank.csv")
+    sample_l_path = os.path.join("sample_upload_data", "sample_ledger.csv")
+
+    if os.path.exists(sample_p_path) and os.path.exists(sample_b_path) and os.path.exists(sample_l_path):
+        with st.expander("📥 Need sample files to test? Download pre-formatted test CSVs"):
+            st.markdown("Click each button to automatically download sample files, then drag and drop them into the upload boxes below:")
+            d_c1, d_c2, d_c3 = st.columns(3)
+            with open(sample_p_path, "r", encoding="utf-8") as f_p:
+                p_data = f_p.read()
+            with open(sample_b_path, "r", encoding="utf-8") as f_b:
+                b_data = f_b.read()
+            with open(sample_l_path, "r", encoding="utf-8") as f_l:
+                l_data = f_l.read()
+
+            with d_c1:
+                st.download_button(
+                    "📥 Download Payments CSV",
+                    data=p_data,
+                    file_name="payments.csv",
+                    mime="text/csv",
+                    key="dl_sample_payments"
+                )
+            with d_c2:
+                st.download_button(
+                    "📥 Download Bank CSV",
+                    data=b_data,
+                    file_name="bank.csv",
+                    mime="text/csv",
+                    key="dl_sample_bank"
+                )
+            with d_c3:
+                st.download_button(
+                    "📥 Download Ledger CSV",
+                    data=l_data,
+                    file_name="ledger.csv",
+                    mime="text/csv",
+                    key="dl_sample_ledger"
+                )
+
     st.markdown("### 📤 Upload Operational Data Feeds")
     up_c1, up_c2, up_c3 = st.columns(3)
 

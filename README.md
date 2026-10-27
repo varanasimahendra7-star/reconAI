@@ -18,17 +18,22 @@
 
 Evaluators can test the live **Upload CSV Data** mode directly in the deployed dashboard using the sample datasets provided in the repository:
 
-| Dataset | Source Type | Direct Download Link |
+| Dataset / Bundle | Source Type | Direct Download Link |
 | :--- | :--- | :--- |
-| **Payment Gateway** | Customer Transactions | [📥 Download `sample_payments.csv`](https://raw.githubusercontent.com/varanasimahendra7-star/reconAI/main/sample_upload_data/sample_payments.csv) |
-| **Bank Statements** | Settlement Records | [📥 Download `sample_bank.csv`](https://raw.githubusercontent.com/varanasimahendra7-star/reconAI/main/sample_upload_data/sample_bank.csv) |
-| **Merchant Ledger** | Internal Accounting Records | [📥 Download `sample_ledger.csv`](https://raw.githubusercontent.com/varanasimahendra7-star/reconAI/main/sample_upload_data/sample_ledger.csv) |
+| **📦 All-in-One Test Zip** | **All 3 CSVs (Pre-packaged)** | **[📥 Download `sample_reconai_data.zip`](https://github.com/varanasimahendra7-star/reconAI/raw/main/sample_upload_data/sample_reconai_data.zip)** *(Auto-downloads immediately)* |
+| **Payment Gateway** | Customer Transactions | [📄 View / Save `sample_payments.csv`](https://github.com/varanasimahendra7-star/reconAI/raw/main/sample_upload_data/sample_payments.csv) |
+| **Bank Statements** | Settlement Records | [📄 View / Save `sample_bank.csv`](https://github.com/varanasimahendra7-star/reconAI/raw/main/sample_upload_data/sample_bank.csv) |
+| **Merchant Ledger** | Internal Accounting Records | [📄 View / Save `sample_ledger.csv`](https://github.com/varanasimahendra7-star/reconAI/raw/main/sample_upload_data/sample_ledger.csv) |
+
+> 💡 **Two Fast Ways to Test:**
+> - **In App (Fastest — 1-Click):** Open the **[Live ReconAI Demo](https://reconai-ogbb8gwzyyhmebevo3nr79.streamlit.app/)**, click **"Upload CSV Data"**, and open the **"📥 Need sample files to test? Download pre-formatted test CSVs"** expander. Click the 3 download buttons to save them directly to your Downloads folder!
+> - **From GitHub:** Click the **`sample_reconai_data.zip`** link above to automatically download all 3 files in a single zip archive. (Or right-click any individual CSV link and choose *"Save link as..."*).
 
 #### How to Test in 30 Seconds:
-1. Click each of the three links above to download the sample CSVs to your device.
+1. Download the sample CSVs (via the zip bundle, individual links, or directly inside the Streamlit app).
 2. Open the **[Live ReconAI Demo](https://reconai-ogbb8gwzyyhmebevo3nr79.streamlit.app/)**.
 3. In the sidebar, select **"Upload CSV Data"**.
-4. Drag and drop the downloaded files into their respective uploaders (**Payment Gateway**, **Bank Statement**, **Merchant Ledger**).
+4. Drag and drop the 3 files into their respective uploaders (**Payment Gateway**, **Bank Statement**, **Merchant Ledger**).
 5. Click **"Run Reconciliation"** to execute the multi-source pipeline live in-memory!
 
 *This test cohort exercises exact reference matches, automatic 2% MDR fee deductions, settlement date-drift windows, descriptor variations, and unresolvable anomaly exceptions.*
