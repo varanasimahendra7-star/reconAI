@@ -290,11 +290,9 @@ reconAI/
 ├── pipeline.py               # End-to-end orchestration pipeline
 ├── app.py                    # Streamlit interactive reconciliation dashboard
 ├── ARCHITECTURE.md           # Deep-dive architecture & data flow specification
-├── DEMO_SCRIPT.md            # Spoken 2-3 minute presentation & demonstration script
-├── SUBMISSION_CHECKLIST.md   # Final hackathon submission audit checklist
 ├── data/
 │   ├── payments.csv          # Payment Gateway records (90 rows)
-│   ├── bank.csv              # Bank Settlement statements (88 rows)
+│   ├── bank.csv              # Bank Settlement statements (98 rows)
 │   ├── ledger.csv            # Merchant Internal Ledger entries (90 rows)
 │   ├── ground_truth.csv      # Independent test oracle (90 rows)
 │   └── reconciliation_cache.pkl # Verified pipeline execution output cache
@@ -311,7 +309,7 @@ reconAI/
 
 ### 1. Clone & Set Up Virtual Environment
 ```bash
-git clone https://github.com/your-username/reconAI.git
+git clone https://github.com/varanasimahendra7-star/reconAI.git
 cd reconAI
 
 # Create virtual environment
