@@ -14,6 +14,27 @@
 
 ---
 
+## 🧪 Interactive Testing & Sample Upload Data
+
+Evaluators can test the live **Upload CSV Data** mode directly in the deployed dashboard using the sample datasets provided in the repository:
+
+| Dataset | Source Type | Direct Download Link |
+| :--- | :--- | :--- |
+| **Payment Gateway** | Customer Transactions | [📥 Download `sample_payments.csv`](https://raw.githubusercontent.com/varanasimahendra7-star/reconAI/main/sample_upload_data/sample_payments.csv) |
+| **Bank Statements** | Settlement Records | [📥 Download `sample_bank.csv`](https://raw.githubusercontent.com/varanasimahendra7-star/reconAI/main/sample_upload_data/sample_bank.csv) |
+| **Merchant Ledger** | Internal Accounting Records | [📥 Download `sample_ledger.csv`](https://raw.githubusercontent.com/varanasimahendra7-star/reconAI/main/sample_upload_data/sample_ledger.csv) |
+
+#### How to Test in 30 Seconds:
+1. Click each of the three links above to download the sample CSVs to your device.
+2. Open the **[Live ReconAI Demo](https://reconai-ogbb8gwzyyhmebevo3nr79.streamlit.app/)**.
+3. In the sidebar, select **"Upload CSV Data"**.
+4. Drag and drop the downloaded files into their respective uploaders (**Payment Gateway**, **Bank Statement**, **Merchant Ledger**).
+5. Click **"Run Reconciliation"** to execute the multi-source pipeline live in-memory!
+
+*This test cohort exercises exact reference matches, automatic 2% MDR fee deductions, settlement date-drift windows, descriptor variations, and unresolvable anomaly exceptions.*
+
+---
+
 ## 1. Project Overview
 
 ### The Problem: Financial Reconciliation at Scale
@@ -290,6 +311,10 @@ reconAI/
 ├── pipeline.py               # End-to-end orchestration pipeline
 ├── app.py                    # Streamlit interactive reconciliation dashboard
 ├── ARCHITECTURE.md           # Deep-dive architecture & data flow specification
+├── sample_upload_data/       # Test CSV datasets for evaluating Upload Mode
+│   ├── sample_payments.csv   # Sample Payment Gateway records
+│   ├── sample_bank.csv       # Sample Bank settlement records
+│   └── sample_ledger.csv     # Sample Merchant ledger entries
 ├── data/
 │   ├── payments.csv          # Payment Gateway records (90 rows)
 │   ├── bank.csv              # Bank Settlement statements (98 rows)

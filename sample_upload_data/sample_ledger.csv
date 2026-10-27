@@ -1,0 +1,7 @@
+ledger_id,ledger_date,ledger_amount,customer_name,ledger_reference
+LEDP001,2026-09-05,1000.0,Arjun Kumar,PAYP001
+LEDP002,2026-09-05,1500.0,Priya Sharma,PAYP002
+LEDP003,2026-09-05,2200.0,Rahul Verma,PAYP003
+LEDP004,2026-09-05,1750.0,Kiran Rao,PAYP004
+LEDP005,2026-09-05,2750.0,Neha Singh,PAYP005
+LEDP006,2026-09-05,3600.0,Amit Patel,PAYP006

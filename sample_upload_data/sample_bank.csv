@@ -1,0 +1,8 @@
+bank_id,settlement_date,settlement_amount,description,bank_reference
+BANKP001,2026-09-05,1000.0,Settlement PAYP001 - Arjun Kumar,PAYP001
+BANKP002,2026-09-06,1470.0,Settlement PAYP002 - Priya Sharma,PAYP002
+BANKP003,2026-09-07,2200.0,Settlement PAYP003 - Rahul Verma,PAYP003
+BANKP004,2026-09-06,1750.0,Settlement for Kiran Rao customer,SETTLE-KR004
+BANKP005,2026-09-06,2713.0,Settlement PAYP005 - Neha Singh,PAYP005
+BANKP006A,2026-09-06,3599.0,Settlement for Amit Patel - invoice PITCH006,ALT-P6
+BANKP006B,2026-09-06,1200.0,Unrelated settlement - Amit Patel,OTHER-P6
