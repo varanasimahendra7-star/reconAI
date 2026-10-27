@@ -442,10 +442,9 @@ The video follows this structured 4-minute demonstration workflow:
 
 ---
 
-## 11. Submission & License
+## 11. Submission Information
 
 - **Project:** ReconAI (End-Term Software Project)
 - **Author:** Mahendra Varanasi
 - **Domain:** AI Finance Controller & Multi-Source Reconciliation
 - **Submission Date:** 27 October 2026
-- **License:** MIT License
