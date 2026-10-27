@@ -1,11 +1,12 @@
 # ReconAI: Multi-Source Financial Reconciliation Agent
 
-[![Track](https://img.shields.io/badge/Track-04%20AI%20Finance%20Controller-blue.svg)](https://razorpay.com)
+[![Project](https://img.shields.io/badge/Project-End--Term%20Software%20Project-blue.svg)](https://github.com/varanasimahendra7-star/reconAI)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-brightgreen.svg)](https://www.python.org/)
 [![Framework](https://img.shields.io/badge/Framework-Streamlit-red.svg)](https://streamlit.io/)
 [![Model](https://img.shields.io/badge/LLM-Gemini%203.6%20Flash-orange.svg)](https://deepmind.google/technologies/gemini/)
 
-> **Solo Submission** — Razorpay AI Buildathon (Track 04: AI Finance Controller)
+> **End-Term Software Project** — Automated Multi-Source Financial Reconciliation Engine  
+> **Author:** Mahendra Varanasi | **Submission Date:** October 2026
 
 ## 🚀 Live Demo
 
@@ -355,35 +356,35 @@ python evaluate.py
 
 ---
 
-## 10. 2–3 Minute Demonstration Guide
+## 10. 3–5 Minute Demonstration Guide
 
-Follow this streamlined walkthrough for live presentations or recorded demos:
+Follow this streamlined walkthrough for your recorded demo video (recommended duration: 3–5 minutes per guidelines):
 
-1. **The Executive Problem (0:00 - 0:30):**
-   - Open the Streamlit dashboard (`app.py`).
-   - Highlight the 3 disjoint sources: Payment Gateway, Bank Settlement, and Merchant Ledger.
-   - Explain the core challenge: T+3 settlement delays, MDR gateway fee deductions, duplicate batch settlements, and text variations.
-2. **Deterministic Rules Engine (0:30 - 1:00):**
-   - Point to the **Deterministic Matches** KPI card (`71 / 90` matched).
-   - Show the **Reconciliation Breakdown** table: `63` exact matches and `8` fee-adjusted matches (2% MDR fee).
-   - Point out rule-based exceptions: `5` duplicate settlement candidates and `7` missing bank entries.
-3. **AI Escalation & Honest Degradation (1:00 - 1:45):**
-   - Explain the **AI Escalation** card (`7` cases).
-   - Show the yellow **AI Health Status Banner**.
-   - Speak the key phrase:  
-     > *"71 transactions were resolved deterministically, 7 ambiguous cases were escalated to Gemini, and the final validation run hit the free-tier quota, so those cases safely degraded to AI_FAILED rather than being force-matched. Earlier development validation also confirmed genuine Gemini reasoning on ambiguous cases."*
-4. **Interactive Transaction Drill-Down (1:45 - 2:30):**
-   - Select **Filter by Method** -> `MATCHED_WITH_FEE`: Inspect `TXN0004` to show automatic 2% fee detection.
-   - Select **Filter by Method** -> `DUPLICATE_CANDIDATE`: Inspect `TXN0005` to show how ReconAI flagged multiple bank candidates rather than guessing.
-   - Select **Filter by Method** -> `AI_FAILED`: Inspect `TXN0022` to show the transparent audit trail and quota error capture.
-5. **Controller Conclusion (2:30 - 3:00):**
-   - Show the **Evaluation & Confusion Matrix**: 100% binary decision accuracy, 0 false positives, zero ledger corruption.
+1. **The Executive Problem (0:00 - 0:45):**
+   - Open the live Streamlit dashboard (pp.py).
+   - Highlight the 3 disjoint financial sources: Payment Gateway, Bank Settlement, and Merchant Internal Ledger.
+   - Explain the core operational challenge: T+3 settlement delays, MDR gateway fee deductions (2%), duplicate batch settlements, and text descriptor variations.
+2. **Deterministic Rules Engine (0:45 - 1:30):**
+   - Point to the **Deterministic Matches** KPI card (68 / 90 matched).
+   - Show the **Reconciliation Breakdown** table: 60 exact/date/name matches and 8 fee-adjusted matches (2% MDR fee).
+   - Point out rule-based exceptions: 5 duplicate settlement candidates and 5 missing bank entries.
+3. **Selective AI Escalation & Failsafe Degradation (1:30 - 2:30):**
+   - Explain the **AI Escalation** cohort (12 ambiguous cases).
+   - Highlight the **AI Successful** card (8 resolved: 6 confirmed matches via candidate description analysis, 2 amount mismatch exceptions).
+   - Explain the **AI/System Failures** card (4 cases): when API quotas or server limits are reached, ReconAI safely degrades to AI_FAILED (LLM_PARSE_FAILURE) rather than guessing, preserving zero false positives.
+4. **Interactive Transaction Drill-Down & Upload Mode (2:30 - 4:00):**
+   - In Demo Mode, inspect an AI-resolved transaction (e.g., TXN0005) showing Gemini's structured reasoning and confidence rating.
+   - In Demo Mode, inspect an AI-failed transaction (e.g., TXN0042) showing transparent error capture.
+   - Switch sidebar to **Upload CSV Data**: drag and drop custom Payment Gateway, Bank, and Ledger CSVs to demonstrate real-time, in-memory validation and reconciliation.
+5. **Controller Conclusion (4:00 - 4:30):**
+   - Review the **Evaluation & Confusion Matrix**: 97.8% binary decision accuracy, 0 false positives (0.00% FPR), and 100% precision across all exception categories.
 
 ---
 
 ## 11. Submission & License
 
-- **Author:** Solo Developer
-- **Hackathon:** Razorpay AI Buildathon 2026
-- **Track:** Track 04: AI Finance Controller
+- **Project:** ReconAI (End-Term Software Project)
+- **Author:** Mahendra Varanasi
+- **Domain:** AI Finance Controller & Multi-Source Reconciliation
+- **Submission Date:** 27 October 2026
 - **License:** MIT License

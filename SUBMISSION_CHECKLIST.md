@@ -1,7 +1,7 @@
 # ReconAI: Hackathon Submission Audit & Checklist
 
 > **Track 04:** AI Finance Controller  
-> **Solo Submission** — Razorpay AI Buildathon 2026  
+> **Solo Submission** — End-Term Software Project  
 > **Repository:** ReconAI  
 
 ---

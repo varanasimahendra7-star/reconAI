@@ -1,6 +1,6 @@
 # ReconAI: 2–3 Minute Presentation & Demonstration Script
 
-> **Track 04:** AI Finance Controller — Razorpay AI Buildathon  
+> **Track 04:** AI Finance Controller — End-Term Software Project  
 > **Speaker:** Solo Developer  
 > **Total Time:** 2 minutes 45 seconds  
 
