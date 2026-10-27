@@ -328,8 +328,7 @@ reconAI/
 │   ├── ground_truth.csv            # Independent test oracle (90 rows)
 │   └── reconciliation_cache.pkl   # Verified pipeline execution output cache
 ├── docs/                           # Documentation & evaluation artifacts
-│   ├── evaluation_report.md        # Comprehensive benchmark evaluation report
-│   └── ReconAI_Demo_Video_Script.pdf # Formatted 4-minute demo presentation script
+│   └── evaluation_report.md        # Comprehensive benchmark evaluation report
 └── tests/                          # Automated integration & unit test suite
     ├── __init__.py                 # Test package marker
     ├── test_app_modes.py           # Streamlit AppTest (Demo & Upload Mode integration)
