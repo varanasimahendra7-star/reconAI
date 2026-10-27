@@ -19,12 +19,19 @@ import csv
 from typing import List, Dict, Any
 
 
-def load_ground_truth(ground_truth_path: str = "data/ground_truth.csv") -> Dict[str, Dict[str, Any]]:
+REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+DEFAULT_GROUND_TRUTH_PATH = os.path.join(REPO_ROOT, "data", "ground_truth.csv")
+
+
+def load_ground_truth(ground_truth_path: str = DEFAULT_GROUND_TRUTH_PATH) -> Dict[str, Dict[str, Any]]:
     """
     Loads ground_truth.csv into a dictionary keyed by transaction_id.
     """
     if not os.path.exists(ground_truth_path):
-        raise FileNotFoundError(f"Ground truth file not found at: {ground_truth_path}")
+        if os.path.exists(DEFAULT_GROUND_TRUTH_PATH):
+            ground_truth_path = DEFAULT_GROUND_TRUTH_PATH
+        else:
+            raise FileNotFoundError(f"Ground truth file not found at: {ground_truth_path}")
 
     with open(ground_truth_path, mode="r", encoding="utf-8", newline="") as f:
         reader = csv.DictReader(f)
@@ -263,3 +270,15 @@ def format_evaluation_report(
     ])
 
     return "\n".join(report_lines)
+
+
+if __name__ == "__main__":
+    import pickle
+
+    cache_path = os.path.join(REPO_ROOT, "data", "reconciliation_cache.pkl")
+    if os.path.exists(cache_path):
+        with open(cache_path, "rb") as f:
+            cached_data = pickle.load(f)
+        print(cached_data.get("report_text", "Evaluation report not found in cache."))
+    else:
+        print(f"Cache file not found at: {cache_path}")

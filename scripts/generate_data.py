@@ -31,7 +31,8 @@ NUM_BASE_TRANSACTIONS = 90          # ~90 root payments; total rows differ
 GATEWAY_FEE_PCT = 0.02              # 2 % gateway fee deduction
 SETTLEMENT_WINDOW_DAYS = 3          # Bank may settle up to N days after payment
 
-OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "data")
+REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+OUTPUT_DIR = os.path.join(REPO_ROOT, "data")
 
 # Edge-case counts (must sum to <= NUM_BASE_TRANSACTIONS)
 EDGE_CASE_COUNTS = {

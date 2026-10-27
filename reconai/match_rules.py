@@ -1,4 +1,4 @@
-﻿"""
+"""
 match_rules.py
 --------------
 Deterministic reconciliation engine for ReconAI.
@@ -53,11 +53,18 @@ Result schema (per payment):
 
 import os
 from datetime import timedelta
-from normalize import (
-    load_normalized_payments,
-    load_normalized_bank,
-    load_normalized_ledger,
-)
+try:
+    from .normalize import (
+        load_normalized_payments,
+        load_normalized_bank,
+        load_normalized_ledger,
+    )
+except ImportError:
+    from normalize import (
+        load_normalized_payments,
+        load_normalized_bank,
+        load_normalized_ledger,
+    )
 
 # ---------------------------------------------------------------------------
 # Configuration (can be overridden by caller)

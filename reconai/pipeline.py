@@ -23,10 +23,16 @@ from dotenv import load_dotenv
 # Load env variables (including GEMINI_MODEL, GEMINI_API_KEY)
 load_dotenv(override=True)
 
-import normalize
-import match_rules
-import ai_agent
-import evaluate
+try:
+    from . import normalize
+    from . import match_rules
+    from . import ai_agent
+    from . import evaluate
+except ImportError:
+    import normalize
+    import match_rules
+    import ai_agent
+    import evaluate
 
 
 def reconcile_records(
@@ -174,7 +180,10 @@ def run_pipeline(
     if regenerate_data or not (
         os.path.exists(payments_path) and os.path.exists(bank_path) and os.path.exists(ledger_path)
     ):
-        import generate_data
+        try:
+            from scripts import generate_data
+        except ImportError:
+            import generate_data
         generate_data.main()
 
     # Load raw records from disk

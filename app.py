@@ -23,7 +23,7 @@ from typing import Set, Tuple, List, Dict, Any
 import pandas as pd
 import streamlit as st
 
-import pipeline
+from reconai import pipeline
 
 # Configure Streamlit page
 st.set_page_config(

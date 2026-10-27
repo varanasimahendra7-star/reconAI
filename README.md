@@ -306,35 +306,45 @@ During the design and validation of ReconAI, three real-world engineering issues
 
 ```
 reconAI/
+├── app.py                          # 🚀 Streamlit Interactive Dashboard (Web Entry Point)
+├── requirements.txt                # Project dependencies
 ├── .env.example                    # Template configuration file (API key placeholder)
 ├── .gitignore                      # Git exclusions (.env, caches, virtualenvs)
-├── requirements.txt                # Python dependencies
-├── generate_data.py                # Synthetic dataset generator (90 PG, 98 Bank, 90 Ledger)
-├── normalize.py                    # Cleaning, date parsing, reference stripping functions
-├── match_rules.py                  # Deterministic reconciliation rules (Rules 1-4)
-├── ai_agent.py                     # Google Gemini client, Pydantic schema, structured output
-├── evaluate.py                     # Standalone ground-truth evaluation & confusion matrix
-├── pipeline.py                     # End-to-end orchestration pipeline
-├── app.py                          # Streamlit interactive reconciliation dashboard
-├── ARCHITECTURE.md                 # Deep-dive architecture & data flow specification
-├── sample_upload_data/             # Test CSV datasets for evaluating Upload Mode
-│   ├── sample_payments.csv         # Sample Payment Gateway records (6 rows)
-│   ├── sample_bank.csv             # Sample Bank settlement records (6 rows)
-│   ├── sample_ledger.csv           # Sample Merchant ledger entries (6 rows)
-│   └── sample_reconai_data.zip     # Bundled zip for 1-click test file downloads
-├── data/
+├── README.md                       # Complete project guide, benchmark metrics, & instructions
+│
+├── reconai/                        # 🧠 Core Domain Engine (Standard Python Package)
+│   ├── __init__.py                 # Package exports & version metadata
+│   ├── pipeline.py                 # End-to-end 3-tier reconciliation pipeline
+│   ├── match_rules.py              # Deterministic reconciliation rules (Rules 1-4)
+│   ├── normalize.py                # Schema cleaning, date parsing, reference extractors
+│   ├── ai_agent.py                 # Google Gemini client, Pydantic schema, structured output
+│   └── evaluate.py                 # Independent ground-truth evaluation & confusion matrix
+│
+├── scripts/                        # 🛠️ Developer & Admin Utilities
+│   └── generate_data.py            # Synthetic dataset generator (90 PG, 98 Bank, 90 Ledger)
+│
+├── docs/                           # 📚 Technical Documentation & System Specifications
+│   ├── ARCHITECTURE.md             # Deep-dive system architecture & data flow specification
+│   └── evaluation_report.md        # Comprehensive benchmark evaluation report
+│
+├── tests/                          # 🧪 Automated Integration & Unit Test Suite
+│   ├── __init__.py                 # Test package marker
+│   ├── test_pipeline.py            # In-memory deterministic reconciliation tests
+│   ├── test_app_modes.py           # Streamlit AppTest (Demo & Upload Mode integration)
+│   └── test_validation.py          # CSV schema & boundary validation tests
+│
+├── data/                           # 📊 Canonical Benchmark Datasets & Pre-computed Cache
 │   ├── payments.csv                # Payment Gateway records (90 rows)
 │   ├── bank.csv                    # Bank Settlement statements (98 rows)
 │   ├── ledger.csv                  # Merchant Internal Ledger entries (90 rows)
 │   ├── ground_truth.csv            # Independent test oracle (90 rows)
-│   └── reconciliation_cache.pkl   # Verified pipeline execution output cache
-├── docs/                           # Documentation & evaluation artifacts
-│   └── evaluation_report.md        # Comprehensive benchmark evaluation report
-└── tests/                          # Automated integration & unit test suite
-    ├── __init__.py                 # Test package marker
-    ├── test_app_modes.py           # Streamlit AppTest (Demo & Upload Mode integration)
-    ├── test_pipeline.py            # In-memory deterministic reconciliation tests
-    └── test_validation.py          # CSV schema & boundary validation tests
+│   └── reconciliation_cache.pkl    # Verified pipeline execution output cache
+│
+└── sample_upload_data/             # 📥 Test CSV Datasets for Evaluating Upload Mode
+    ├── sample_payments.csv         # Sample Payment Gateway records (6 rows)
+    ├── sample_bank.csv             # Sample Bank settlement records (6 rows)
+    ├── sample_ledger.csv           # Sample Merchant ledger entries (6 rows)
+    └── sample_reconai_data.zip     # Bundled zip for 1-click test file downloads
 ```
 
 ---
@@ -387,7 +397,7 @@ Open your browser at `http://localhost:8501`.
 ### 5. (Optional) Run the Standalone Evaluation
 To evaluate the reconciliation output against ground truth:
 ```bash
-python evaluate.py
+python reconai/evaluate.py
 ```
 
 ### 6. Run the Automated Test Suite
@@ -398,6 +408,9 @@ python tests/test_pipeline.py
 
 # Run Streamlit AppTest integration suite
 python tests/test_app_modes.py
+
+# Run CSV schema validation tests
+python tests/test_validation.py
 ```
 
 ---
